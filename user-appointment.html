@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/ico/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/styles/styles.css">
+    <link rel="stylesheet" href="./css/fontawesome-free-5.15.1-web/css/all.css">
+    <link rel="stylesheet" href="./css/styles/search-property.css">
+    <link rel="stylesheet" href="./css/styles/estate.css">
+    <link rel="stylesheet" href="./css/styles/appointment.css">
+    <link rel="stylesheet" href="./css/styles/chatbox.css">
+    <!-- data -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <script src="./data/house.js"></script>
+    <script src="./data/district.js"></script>
+    <script src="./js/loadData.js"></script>
+    <script src="./data/appointment.js"></script>
+    <script src="./js/chatbox.js"></script>
+    <!-- end of data -->
+    <title>Dream House Property | Property Appointment</title>
+  </head>
+  <body>
+    <!-- jquery && bootstrap-->
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/comment.js"></script>
+    <script src="./js/appointment-import.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <!-- end of jquery  -->
+    <!-- navbar -->
+    <span class="nav-btn" id="nav-btn">
+      <i class="fas fa-bars"></i>
+    </span>
+    <header class="navbar">
+      <span class="nav-close" id="nav-close">
+        <i class="fas fa-times"></i>
+      </span>
+      <img class="navbar-logo" id="navbar-logo" src="./img/icon.jpg" alt="" />
+      <nav>
+        <ul class="nav-center">
+          <li><a href="./index.html" class="nav-link">Home</a></li>
+          <li><a href="./property-search.html" class="nav-link">search property</a></li>
+          <li><a href="./user-profile.html" class="nav-link">profile</a></li>
+          <li><a href="./user-appointment.html" class="nav-link">Appointment Status</a></li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li><a href="./index.html" class="nav-link" >Sign out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="big-wrapper">
+      <div class="appointment-title">
+        <h2>Check Your Appointment status</h1>
+      </div>
+      <div class="filter">
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <div>
+              <label for="appmonth" class="labelInput">Appointment Month:</label> 
+              <input type="month" class="form-input" id="appmonth" /><br/>
+            </div>
+
+            <div>
+              <label for="status" class="labelInput">Appointment Status:</label> 
+              <select id="status"class="form-input" id="status-select">
+                <option value="confirm">Confirmed</option>
+                <option value="non-confirm">Not Confirmed</option>
+                <option value="all">All</option>
+              </select>
+            </div>
+
+            <button class="btn" id="filterbtn">Filter estate</button>
+          </div>
+        </form>
+      </div>
+      <div class="featured-estate-container">
+
+      </div>
+    </div>
+
+    <button class="btn chatBtn chatToggle" id="chatToggle">Online Chat<i class="far fa-comment-alt" style="margin-left: 1rem"></i></button>
+    <div class="chatbox">
+      <div class="chatbox-title">
+        <h4><i class="fas fa-robot" style="margin-right: 0.5rem"></i>Online Inquiry</h4>
+      </div>
+      <div class="chat-container">
+        <div class="reply-content">
+          <span class="reply-icon" style="margin-right:0.5rem"><i class="fas fa-robot"></i></span>
+          <p>You can try using self-inquiry function to answer your doubt.
+            If still has any question, you can leave a message to us.
+            <br/><span class="reply-time">10:55PM</span></p>
+        </div>
+        
+      </div>
+
+      <div class="answerbtn-group" >
+        <button id="ctacAsk" class="btn chatBtn">create account</button>
+        <button id="searchAsk" class="btn chatBtn">find property</button>
+        <button id="mkappAsk" class="btn chatBtn">make appointment</button>
+        <button id="chatBtn" class="btn chatBtn">online chat</button>
+      </div>
+    </div>
+    <form id="alertMessage" class="modal" onsubmit="return false;">
+      <span class="special-title">Cannot find any result!!!</span>
+    <button class="btn" id="closeMessage" onclick="$('#closeMessage').click(function(){$.modal.close()});" style="margin-left: 2rem; border-radius: 8px">Close</button>
+    </form>
+    <script src="./js/navbar.js"></script>
+    <script>
+      $(document).ready(function() {
+        appendAppointment();
+        $("#filterbtn").click(function() {
+          filterResult();
+          var x = $(".featured-estate-container").children().length;
+          if(x <= 0){
+            $("#alertMessage").modal();
+          }
+        });
+
+        $(".chatbox").hide();
+        $(document).on("click", "#ctacAsk", function(){
+          appendAnswer(1);
+        });
+        $(document).on("click", "#searchAsk", function(){
+          appendAnswer(2);
+        });
+        $(document).on("click", "#mkappAsk", function(){
+          appendAnswer(3);
+        });
+        $(document).on("click", "#chatBtn", function(){
+          appendAnswer(4);
+        })
+        $(document).on("click", "#sendMsg", function(){
+          console.log("hello");
+          sendMsg();
+        });
+        $(document).on("click", "#out", function(){
+          restore();
+        });
+        $("#chatToggle").click(function(){
+          if($(".chatbox").is(":visible")){
+            $(".chatbox").fadeOut(200); 
+          } else {
+            $(".chatbox").fadeIn(200);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

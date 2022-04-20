@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/ico/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/styles/styles.css">
+    <link rel="stylesheet" href="./css/fontawesome-free-5.15.1-web/css/all.css">
+    <link rel="stylesheet" href="./css/styles/login.css">
+    <link rel="stylesheet" href="./css/styles/user-search.css">
+    <link rel="stylesheet" href="./css/styles/agent-management.css">
+    <!-- data -->
+    <script src="./data/house.js"></script>
+    <script src="./data/district.js"></script>
+    <script src="./js/loadData.js"></script>
+    <script src="./js/login.js"></script>
+    <script src="./js/searchuser.js"></script>
+    <script src="./js/agent-management.js"></script>
+    <!-- end of data -->
+    <title>Dream House Property | Agent Profile</title>
+  </head>
+  <body>
+    <!-- jquery && bootstrap-->
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <!-- end of jquery  -->
+    <!-- navbar -->
+    <span class="nav-btn" id="nav-btn">
+      <i class="fas fa-bars"></i>
+    </span>
+    <header class="navbar">
+      <span class="nav-close" id="nav-close">
+        <i class="fas fa-times"></i>
+      </span>
+      <img class="navbar-logo" id="navbar-logo" src="./img/icon.jpg" alt="" />
+      <nav>
+        <ul class="nav-center">
+          <li><a href="./manager-view-user.html" class="nav-link">Search User</a></li>
+		      <li><a href="./manager-estate-comment.html" class="nav-link">View Propety Comment</a></li>
+          <li><a href="./agent-management.html" class="nav-link">Agent Management</a></li>
+          <li><a href="./manager-profile.html" class="nav-link">Profile</a></li>
+          <li><a href="./manager-appointment.html" class="nav-link">Arranged Appointment</a></li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li><a href="./index.html" class="nav-link" >Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- end of navbar -->
+    <!-- banner section -->
+    <section class="section-center user-section">
+      <div class="banner">
+        <div class="title">
+          <h1><span class="user-icon"><i class="fas fa-users"></i></span>Agent Database</h1>
+          <form class="search-form" autocomplete="off">
+            <input list="userlist" type="email" name="email" class="form-control" placeholder="Enter Email For searching" id="userInput" />
+            <datalist id="userlist"></datalist>
+            <span class="search-icon" id="search"><i class="fas fa-search"></i></span>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- end of banner section -->
+    <button id="addAgent" style="display:block; margin: 0 auto" class="btn"><i class="fas fa-address-card" >&nbsp;</i> &nbsp;Add Agent</button>
+    <section class="section-center user-details">
+      <div class="user-info-container">
+        <table id="user-info" style="width:100%">
+  
+        </table>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <footer>
+        <div class="footer-nav">
+          <ul class="footer-nav-container">
+            <li><a href="./manager-view-user.html" class="footer-link">Search User</a></li>
+            <li><a href="./manager-estate-comment.html" class="footer-link">View Propety Comment</a></li>
+            <li><a href="./agent-management.html" class="footer-link">Agent Management</a></li>
+			<li><a href="./manager-profile.html" class="footer-link">Profile</a></li>
+            <li><a href="./index.html" class="footer-link">Sign out</a></li>
+          </ul>
+        </div>
+        <p class="copyright">
+          copyright &copy; Dream House property HK Inc. <span id="date"></span>.
+          all rights reserved
+        </p>
+      </footer>
+
+    <!-- motal -->
+    <div id="status_dialog" class="modal">
+      <form class="dialog_form" onsubmit="return false;">
+        <div class="dialog-title">
+          <h4>Disable the agent account?</h4>
+          <p>Type <span class="special-title">Disable</span> To Change Status</p>
+        </div>
+        <div class="form-control-container">
+          <input type="text" class="input-status" id="disable-input" required placeholder="Type Disable To Change Status" /><br/>
+          <button id="disableBtn" class="btn">Disable</button>
+        </div>
+      </form>
+      <form class="dialog_form2" onsubmit="return false;">
+        <div class="dialog-title">
+          <h4>Enable the agent account?</h4>
+          <p>Type <span style="color: green">Enable</span> To Change Status</p>
+        </div>
+        <div class="form-control-container">
+          <input type="text" class="input-status" id="enable-input" required placeholder="Type Enable To Change Status" /><br/>
+          <button id="enableBtn" class="btn">Enable</button>
+        </div>
+      </form>
+      <div class="modal" id="edit_dialog">
+        <div class="form-container registerForm" >
+          <form onsubmit="return false;" id="profileEdit">
+            <h4 style="text-align: center;margin-top: 2rem">Add Agent</h4>
+            <div class="form-group-container">
+              <div class="form-group">
+                <label for="newlastname" class="input-label">Last Name</label><br/>
+                <input class="form-input" type="text" id="lastname" placeholder="Last Name">
+              </div>
+              <div class="form-group">
+                <label for="newfirstname" class="input-label">First Name</label><br/>
+                <input class="form-input" type="text" id="firstname" placeholder="First Name">
+              </div>
+              <div class="form-group">
+                <label for="newPhoneNum" class="input-label">Phone Number</label><br/>
+                <input class="form-input" pattern="[1-9]{1}[0-9]{7}" type="number" id="PhoneNum" required placeholder="PhoneNum">
+              </div>
+              <div class="form-group">
+                <label for="newEmail" class="input-label">Email</label><br/>
+                <input class="form-input" type="email" id="newEmail" required placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label for="newPassword" class="input-label">Password</label><br/>
+                <input class="form-input" type="password" id="Password" placeholder="password" oninput="checkPasswordOK(this)">
+                <div class="message">
+                  <!-- <i class="incorrect far fa-times-circle"></i><i class="correct far fa-check-circle"> &nbsp;</i>-->
+                  <span id="new8char">At least 8 characters</span><br/>
+                  <span id="newmixChar"></i>Your password must include <span class="special-title">ONE</span> character and <span class="special-title">ONE</span> number</span>
+                </div>
+              </div>
+              <button id="addAgentNow" class="btn" style="margin-top: 2rem;">Add Agent</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+    <!-- end of motal -->
+    <!-- load data -->
+    <script src="./data/user.js"></script>
+    <script src="./data/agent.js"></script>
+    <script src="./data/managers.js"></script>
+    <script>
+      function checkPasswordOK(selectObject) {
+            var errorMsg1 = $("#new8char");
+            var errorMsg2 = $("#newmixChar");
+            var value = selectObject.value;
+            var error1 = true;
+            var error1 = true;
+            if (selectObject.value == "") {
+                errorMsg1.html("At least 8 characters");
+                errorMsg2.html("You must mix character and number")
+            } else {
+                if (checkMoreThanEight(value)) {
+                    errorMsg1.html('<i class="correct far fa-check-circle"> &nbsp;</i>At least 8 characters');
+                    error1 = false;
+                } else {
+                    errorMsg1.html('<i class="incorrect far fa-times-circle"> &nbsp;</i>At least 8 characters');
+                    error1 = true;
+                }
+                if (includeOneLetter(value)) {
+                    errorMsg2.html('<i class="correct far fa-check-circle"> &nbsp;</i>You must mix character and number');
+                    error2 = false;
+                } else {
+                    errorMsg2.html('<i class="incorrect far fa-times-circle"> &nbsp;</i>You must mix character and number');
+                    error2 = true;
+                }
+            }
+            if (error1 == true || error2 == true) {
+                error = true;
+            } else {
+                error = false;
+            }
+            return error;
+        }
+    var error = true;
+    $(document).ready(function() {
+      var date = (document.getElementById(
+      "date"
+      ).innerHTML = new Date().getFullYear());
+      searchAgent();
+      appendUserList();
+      appendAgentInfo();
+      var currentBtn;
+      $("body").on('click', ".btn-disable", function(){
+        $(".dialog_form").modal();
+        currentBtn = $(this);
+      });
+      $("body").on('click', ".btn-enable", function(){
+        $(".dialog_form2").modal();
+        currentBtn = $(this);
+      });
+      $("#disableBtn").click(function(){
+        if($("#disable-input").val()=="Disable"){
+          $.modal.close();
+          currentBtn.addClass("hidden");
+          $("#disable-input").val('');
+          currentBtn.closest("tr").find(".btn-enable").removeClass("hidden");
+          currentBtn.closest("tr").addClass("disableBackground");
+          currentBtn = null;
+        }
+      });
+      $("#enableBtn").click(function(){
+        if($("#enable-input").val()=="Enable"){
+          $.modal.close();
+          currentBtn.addClass("hidden");
+          $("#enable-input").val('');
+          currentBtn.closest("tr").find(".btn-disable").removeClass("hidden");
+          currentBtn.closest("tr").removeClass("disableBackground");
+          currentBtn = null;
+        }
+      });
+      $("#addAgent").click(function(){
+        $("#edit_dialog").modal();
+      });
+
+      $("#addAgentNow").click(function(){
+        if(!error){
+          var lastname = $("#lastname").val();
+          var firstname = $("#firstname").val();
+          var phone = $("#PhoneNum").val();
+          var email = $("#newEmail").val();
+          $("#user-info").prepend(`<tr>
+               <td>` + email + `</td>` + 
+              `<td>` + `********` + `</td>` + 
+              `<td>` + firstname + `</td>` + 
+              `<td>` + lastname + `</td>` + 
+              `<td>` + phone + `</td>` + 
+              `<td><span class="btn btn-disable">Disable</span><span class="btn btn-enable hidden">Enable</span></td>` + 
+              `</tr>`);
+          $.modal.close();
+        }
+        
+      });
+    });
+    </script>
+    <!-- end of load data -->
+    <!-- navbar js -->
+    <script src="./js/navbar.js"></script>
+  </body>
+</html>

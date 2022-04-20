@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/ico/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/styles/styles.css">
+    <link rel="stylesheet" href="./css/fontawesome-free-5.15.1-web/css/all.css">
+    <link rel="stylesheet" href="./css/styles/login.css">
+    <!-- data -->
+    <script src="./data/house.js"></script>
+    <script src="./data/district.js"></script>
+    <script src="./js/loadData.js"></script>
+    <script src="./js/login.js"></script>
+    <!-- end of data -->
+    <title>Dream House Property | Manager Profile</title>
+  </head>
+  <body>
+    <!-- jquery && bootstrap-->
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <!-- end of jquery  -->
+    <!-- navbar -->
+    <span class="nav-btn" id="nav-btn">
+      <i class="fas fa-bars"></i>
+    </span>
+    <header class="navbar">
+      <span class="nav-close" id="nav-close">
+        <i class="fas fa-times"></i>
+      </span>
+      <img class="navbar-logo" id="navbar-logo" src="./img/icon.jpg" alt="" />
+      <nav>
+        <ul class="nav-center">
+          <li><a href="./manager-view-user.html" class="nav-link">Search User</a></li>
+		      <li><a href="./manager-estate-comment.html" class="nav-link">View Propety Comment</a></li>
+          <li><a href="./agent-management.html" class="nav-link">Agent Management</a></li>
+          <li><a href="./manager-profile.html" class="nav-link">Profile</a></li>
+          <li><a href="./manager-appointment.html" class="nav-link">Arranged Appointment</a></li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li><a href="./index.html" class="nav-link" >Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- end of navbar -->
+    <div class="divider"></div>
+    <!-- sign in && register form -->
+    <section class="section-center register-form">
+      <div class="title">
+        <img src="./img/icon.jpg" alt="" />
+      <h4>User Profile</span></h4>
+    </div>
+    <div class="form-container registerForm" id="registerFormContainer">
+      <form action="index.html" onsubmit="return false;" id="accountRegister">
+        <div class="form-group-container">
+          <div class="form-group">
+            <label for="lastname" class="input-label">Last Name</label><br/>
+            <input class="form-input" type="text" id="lastname" value="XYZ" required disabled placeholder="New Last Name">
+          </div>
+          <div class="form-group">
+            <label for="firstname" class="input-label">First Name</label><br/>
+            <input class="form-input" type="text" id="firstname" value="Manager" required disabled placeholder="New First Name">
+          </div>
+          <div class="form-group">
+            <label for="accountEmail" class="input-label">Email</label><br/>
+            <input class="form-input" type="email" id="accountEmail" disabled value="Manager@gmail.com" required placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="phoneNum" class="input-label">Phone Number</label><br/>
+            <input class="form-input" type="text" id="phoneNum" disabled value="+852 24121212" required placeholder="PhoneNum">
+          </div>
+          <div class="form-group">
+            <label for="password" class="input-label">Password <span class="special-title"></span></label><br/>
+            <input class="form-input" type="password" id="password" value="*********" disabled required placeholder="Login password" oninput="checkPasswordOK(this)">
+          </div>
+          <button class="btn login-btn" id="editBtn">Agent Profile &nbsp;<span class="editProfile"><i class="far fa-edit"></i></button>
+          </div>
+        </form>
+      </div>
+      <div class="modal" id="edit_dialog">
+        <div class="form-container registerForm" >
+          <form onsubmit="return false;" id="profileEdit">
+            <h4 style="text-align: center;margin-top: 2rem">Profile Edit</h4>
+            <div class="form-group-container">
+              <div class="form-group">
+                <label for="newlastname" class="input-label">Last Name</label><br/>
+                <input class="form-input" type="text" id="newlastname" value="XYZ" placeholder="New Last Name">
+              </div>
+              <div class="form-group">
+                <label for="newfirstname" class="input-label">First Name</label><br/>
+                <input class="form-input" type="text" id="newfirstname" value="Manager" placeholder="New First Name">
+              </div>
+              <div class="form-group">
+              <label for="newPhoneNum" class="input-label">Phone Number</label><br/>
+              <input class="form-input" type="text" id="newPhoneNum" value="+852 24121212" required placeholder="newPhoneNum">
+            </div>
+              <div class="form-group">
+                <label for="oldPassword" class="input-label">Old Password <span class="special-title">*</span></label><br/>
+                <input class="form-input" type="password" id="oldPassword" required placeholder="Old password">
+                <p class="special-title hidden" id="oldPasswordError">You old password is incorrect.</p>
+              </div>
+              <div class="form-group">
+                <label for="newPassword" class="input-label">New Password</label><br/>
+                <input class="form-input" type="password" id="newPassword" placeholder="New password" oninput="checkPasswordOK(this)">
+                <div class="message">
+                  <!-- <i class="incorrect far fa-times-circle"></i><i class="correct far fa-check-circle"> &nbsp;</i>-->
+                  <span id="new8char">At least 8 characters</span><br/>
+                  <span id="newmixChar"></i>Your password must include <span class="special-title">ONE</span> character and <span class="special-title">ONE</span> number</span>
+                </div>
+              </div>
+              <button id="editNow" class="btn" style="margin-top: 2rem;">Save Profile</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <!-- end of sign in && register form -->
+      <div class="divider"></div>
+      <footer>
+        <div class="footer-nav">
+          <ul class="footer-nav-container">
+            <li><a href="./manager-view-user.html" class="footer-link">Search User</a></li>
+            <li><a href="./manager-estate-comment.html" class="footer-link">View Propety Comment</a></li>
+            <li><a href="./agent-management.html" class="footer-link">Agent Management</a></li>
+			<li><a href="./manager-profile.html" class="footer-link">Profile</a></li>
+            <li><a href="./index.html" class="footer-link">Sign out</a></li>
+          </ul>
+        </div>
+        <p class="copyright">
+          copyright &copy; Dream House property HK Inc. <span id="date"></span>.
+          all rights reserved
+        </p>
+      </footer>
+      <!-- load data -->
+      <script src="./data/user.js"></script>
+      <script src="./data/agent.js"></script>
+      <script src="./data/managers.js"></script>
+      <script>
+
+        function checkPasswordOK(selectObject) {
+            var errorMsg1 = $("#new8char");
+            var errorMsg2 = $("#newmixChar");
+            var value = selectObject.value;
+            var error1 = true;
+            var error1 = true;
+            if (selectObject.value == "") {
+                errorMsg1.html("At least 8 characters");
+                errorMsg2.html("You must mix character and number")
+            } else {
+                if (checkMoreThanEight(value)) {
+                    errorMsg1.html('<i class="correct far fa-check-circle"> &nbsp;</i>At least 8 characters');
+                    error1 = false;
+                } else {
+                    errorMsg1.html('<i class="incorrect far fa-times-circle"> &nbsp;</i>At least 8 characters');
+                    error1 = true;
+                }
+                if (includeOneLetter(value)) {
+                    errorMsg2.html('<i class="correct far fa-check-circle"> &nbsp;</i>You must mix character and number');
+                    error2 = false;
+                } else {
+                    errorMsg2.html('<i class="incorrect far fa-times-circle"> &nbsp;</i>You must mix character and number');
+                    error2 = true;
+                }
+            }
+            if (error1 == true || error2 == true) {
+                error = true;
+            } else {
+                error = false;
+            }
+            return error;
+        }
+      var error = false;
+      $(document).ready(function() {
+        var date = (document.getElementById(
+        "date"
+        ).innerHTML = new Date().getFullYear());
+        $("#editBtn").click(function(){
+          $("#profileEdit").modal();
+        });
+        $("#oldPassword").bind('copy paste', function (e) {
+             e.preventDefault();
+        });
+        $("#newPassword").bind('copy paste', function (e) {
+             e.preventDefault();
+        });
+        editManagerProfile();
+      });
+
+
+      function editManagerProfile(){
+        $("#editNow").click(function(){
+          if($("#oldPassword").val() != "manager1234"){
+            error = true;
+            $("#oldPasswordError").removeClass("hidden");
+          }else{
+            error = false;
+            $("#oldPasswordError").addClass("hidden");
+          }
+          if(!error){
+            $("#lastname").val($("#newlastname").val());
+            $("#firstname").val($("#newfirstname").val());
+            $("#phoneNum").val($("#newPhoneNum").val());
+            $("#oldPassword").val('');
+            $("#newPassword").val('');
+            $.modal.close();
+          }
+          
+        });
+      }
+      </script>
+      <!-- end of load data -->
+      <!-- navbar js -->
+      <script src="./js/navbar.js"></script>
+    </body>
+  </html>

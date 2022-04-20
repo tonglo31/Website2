@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/ico/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/styles/styles.css">
+    <link rel="stylesheet" href="./css/fontawesome-free-5.15.1-web/css/all.css">
+    <link rel="stylesheet" href="./css/styles/search-property.css">
+    <link rel="stylesheet" href="./css/styles/estate.css">
+    <link rel="stylesheet" href="./css/styles/confirmed-appointment.css">
+    <!-- data -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <script src="./data/house.js"></script>
+    <script src="./data/district.js"></script>
+    <script src="./js/loadData.js"></script>
+    <script src="./data/agent.js"></script>
+    <script src="./data/appointment.js"></script>
+    <!-- end of data -->
+    <title>Dream House Property | Property Appointment</title>
+  </head>
+  <body>
+    <!-- jquery && bootstrap-->
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/comment.js"></script>
+    <script src="./js/appointment-import.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <!-- end of jquery  -->
+    <!-- navbar -->
+    <span class="nav-btn" id="nav-btn">
+      <i class="fas fa-bars"></i>
+    </span>
+    <header class="navbar">
+      <span class="nav-close" id="nav-close">
+        <i class="fas fa-times"></i>
+      </span>
+      <img class="navbar-logo" id="navbar-logo" src="./img/icon.jpg" alt="" />
+      <nav>
+        <ul class="nav-center">
+          <li><a href="./index.html" class="nav-link">Home</a></li>
+          <li><a href="./property-search.html" class="nav-link">search property</a></li>
+          <li><a href="./user-profile.html" class="nav-link">profile</a></li>
+          <li><a href="./user-appointment.html" class="nav-link">Appointment Status</a></li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li><a href="./index.html" class="nav-link" >Sign out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <h3 id="title" class="header-title">Enjoy our services?</h3>
+    <h4 class="header-title">Please take a moment to review your most recent services experienced.</h4>
+
+    <div class="estate">
+      <div class="estate-info-container">
+          <div class="big-container">
+            <div class="img-container">
+              <img src="./img/estate3.jpeg" alt="">
+            </div>
+            <div class="estate-details">
+              <h5 class="title">Visited Estate</h5>
+              <div class="estate-style">
+                <p>Estate name: Kowloon Garden</p>
+              </div>
+              <div class="estate-style">
+                  <p>District: Kowloon City</p>
+              </div>
+              <div class="estate-style">
+                  <p>Visited Date: 2020-11-10</p>
+              </div>
+            </div>
+            <div class="agent-info" id="xasdas">
+              <h5 class="title">Responsible Agent</h5>
+              <div class="agent-info-container">
+                  <div class="img-container">
+                    <img src="./img/agent-profile.png" alt="">
+                  </div>
+                  <div class="agent-details">
+                    <div class="agent-name">
+                      <p>Agent name: Amelia Lai</p>
+                    </div>
+                    <div class="agent-email ">
+                        <p>Agent email: Ameila@gmail.com</p>
+                    </div>
+                    <div class="agent-contact ">
+                        <p>Contact phone: +852 21812345</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feedback hide" >
+      <!-- <p class="hide feedback-user">James Wong <span class="starRate"></span></p>
+
+      <p class="feedback-date hide"></p>
+      <p class="feedback-message hide"></p> -->
+    </div>
+
+
+    <div class="feedback-title">
+      <h3>Leave your feedback to our services/agent</h3>
+      <p>Share your thoughts to us .</p>
+    </div>
+    <form class="form-container" id="userCCCCCform" style="background: var(--clr-white); " onsubmit="return false;">
+
+      <div class="form-group">
+        <h4>Overall rating To Our Services <span class="special-title">(min:1 max:5)</span></h4>
+        <label class="p-text" for="rate">Service rating: </label><input class="form-input" required type="number" style="width:120px; margin-left:20px;" id="rate" min="1" max="5" />
+
+        </div>
+      </div>
+      <div class="form-group">
+        <h4>Add a written review</h4>
+        <textarea class="form-input" id="comment" style="height: 130px; max-width: 90%" required placeholder="What did you like or dislike? Any suggestion for improving our service?"></textarea>
+      </div>
+      <button type="submit" class="commentBtn btn" id="commentBtn">comment</button>
+      
+    </form>
+
+
+    <script src="./js/navbar.js"></script>
+    <script>
+      $(document).ready(function() {
+        appendAgentInfo();
+        var x = 1;
+        var strokeStar = `<i class="fas fa-star" style="color: orange; font-weight: 200"></i>`;
+        var fillStar =   `<i class="fas fa-star" style="color:orange;font-weight:900"></i>`;
+        $("#commentBtn").click(function() {
+          if(document.getElementById("userCCCCCform").checkValidity()){
+            var times = parseInt($("#rate").val());
+            var d = new Date();
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var numItems = $('.xd').length
+            if(numItems >= 1){
+              $(".feedback").append(`<div class="divider"></div><p class="hide feedback-user">James Wong <span class="starRate xd"></span></p>
+                <p class="feedback-date qq hide"></p>
+                <p class="feedback-message hide"></p>`);
+            } else {
+              $(".feedback").append(`</div><p class="hide feedback-user">James Wong <span class="starRate xd"></span></p>
+            <p class="feedback-date qq hide"></p>
+            <p class="feedback-message hide"></p>`);
+            }
+            $(".feedback-date").append("Reviewed on " + months[d.getMonth()] + " " + d.getDate() + " , " + d.getFullYear());
+            $(".feedback-message").append($("#comment").val());
+            $(".feedback").removeClass("hide");
+            $(".feedback-user").removeClass("hide");
+            $(".feedback-date").removeClass("hide");
+            $(".feedback-message").removeClass("hide");
+            for(var i=1;i<=5;i++) {
+              if(i<=times) {
+                $(".starRate").append(fillStar);
+              } else {
+                $(".starRate").append(strokeStar);
+              }     
+            }
+            $(".starRate").removeClass("starRate").addClass("starRate" + x);
+            $(".feedback-date").removeClass("feedback-date").addClass("feedback-date" + x);
+            x += 1;
+            $(".form-container").trigger("reset");
+            location.href = "#xasdas";
+          }
+
+        });
+      });
+    </script>
+  </body>
+</html>

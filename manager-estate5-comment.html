@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/ico/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/styles/styles.css">
+    <link rel="stylesheet" href="./css/fontawesome-free-5.15.1-web/css/all.css">
+    <link rel="stylesheet" href="./css/styles/search-property.css">
+    <link rel="stylesheet" href="./css/styles/estate.css">
+    <link rel="stylesheet" href="./css/styles/reply.css">
+    <!-- data -->
+    <script src="./data/house.js"></script>
+    <script src="./data/district.js"></script>
+    <script src="./js/loadData.js"></script>
+    <!-- end of data -->
+    <title>Dream House Property | The Most Convenient Site For Rent&Sale Your Property</title>
+    <style>
+      #cancel{
+        background-color: #1f3c88;
+        transition: all 0.3s linear;
+      }
+      #cancel:hover{
+        background: #2d57c6;
+        color:#1f3c88 ;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- jquery && bootstrap-->
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./css/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/comment.js"></script>
+    <!-- end of jquery  -->
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <!-- End of Jquery Modal -->
+    <!-- navbar -->
+    <span class="nav-btn" id="nav-btn">
+      <i class="fas fa-bars"></i>
+    </span>
+    <header class="navbar">
+      <span class="nav-close" id="nav-close">
+        <i class="fas fa-times"></i>
+      </span>
+      <img class="navbar-logo" id="navbar-logo" src="./img/icon.jpg" alt="" />
+      <nav>
+        <ul class="nav-center">
+          <li><a href="./manager-view-user.html" class="nav-link">Search User</a></li>
+		      <li><a href="./manager-estate-comment.html" class="nav-link">View Propety Comment</a></li>
+          <li><a href="./agent-management.html" class="nav-link">Agent Management</a></li>
+          <li><a href="./manager-profile.html" class="nav-link">Profile</a></li>
+          <li><a href="./manager-appointment.html" class="nav-link">Arranged Appointment</a></li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li><a href="./index.html" class="nav-link" >Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- end of navbar -->
+    <!-- header -->
+    <header class="header-section">
+      <div class="footerDetailsSection">
+        <h4 class="address"></h4>
+      </div>
+    </header>
+    <!-- end of header -->
+    <!-- property Details -->
+    <div class="section-center">
+      <h1 id="estateAdd">Propery Details</h1>
+      <div class="estate-container">
+        <div class="img-container estate-image-info">
+          <img src="" class="loadEstateImage">
+        </div>
+        <div class="estate-info">
+          <h4 class="estate-name-info"></h4>
+          <p class="estate-desc-info"></p>
+          <p class="estate-address-info"></p>
+          <p class="estate-type-info"></p>
+          <p class="estate-feet-info"></p>
+          <p class="estate-price-info"></p>
+        </div>
+      </div>
+    </div>
+    <!-- end of property details -->
+    <!-- agent comment section -->
+    <div class="agent-comment-section">
+      <div class="agent-section-title">
+        <img class="profile-icon" src="./img/agent-profile.png" alt="">
+        <h4>Agent's comment for this estate</h4>
+      </div>
+      <p id="agent-comment"></p>
+      <div class="customer-comment">
+        <h2>Users Comment </h4>
+        <!-- <div class="users-comment">
+          <div class="modal" id="delete_dialog" style="padding: 2rem">
+            <p>Are You sure to <span class="special-title" style="margin: 0;padding: 0;">Delete</span> This Comment?</p>
+            <div class="btn-group">
+              <span ><a id="cancel" href="#close-modal" class="btn" rel="modal:close" style="padding: 0.535rem; border-radius: 4px;margin-right: 2rem">Cancel</a></span>
+              <span class="btn" style="padding: 0.535rem; border-radius: 4px;" id="delete-comment">Delete</span>
+            </div>
+          </div>
+          <div class="reply-message-container">
+            
+          </div>
+
+        </div> -->
+      </div>
+    </div>
+    <!--  end of agent-comment -->
+    <!-- footer -->
+    <footer>
+        <div class="footer-nav">
+          <ul class="footer-nav-container">
+            <li><a href="./manager-view-user.html" class="footer-link">Search User</a></li>
+            <li><a href="./manager-estate-comment.html" class="footer-link">View Propety Comment</a></li>
+            <li><a href="./agent-management.html" class="footer-link">Agent Management</a></li>
+			<li><a href="./manager-profile.html" class="footer-link">Profile</a></li>
+            <li><a href="./index.html" class="footer-link">Sign out</a></li>
+          </ul>
+        </div>
+        <p class="copyright">
+          copyright &copy; Dream House property HK Inc. <span id="date"></span>.
+          all rights reserved
+        </p>
+      </footer>
+    <!-- load data -->
+    <script>
+    $(document).ready(function() {
+    var date = (document.getElementById(
+    "date"
+    ).innerHTML = new Date().getFullYear());
+      replyMessage();
+      getHouseByIndex(4);
+      showDeleteDialog();
+      $("#delete-comment").click(function(){
+        $("#delete-btn").closest(".users-comment").remove();
+        $("#cancel").click();
+      });
+    });
+    </script>
+    <!-- end of load data -->
+    <!-- navbar js -->
+    <script src="./js/navbar.js"></script>
+  </body>
+</html>
